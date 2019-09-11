@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const movies = require('./routes/api/movies');
+
 const app = express();
 
 // BODYPARSER MIDDLEWARE
@@ -25,6 +27,9 @@ mongoose
 app.get('/', (req, res) => {
 	res.send('Hello');
 });
+
+// USE ROUTES
+app.use('/api/movies', movies);
 
 const port = process.env.PORT || 5000;
 
