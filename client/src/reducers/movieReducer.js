@@ -1,12 +1,14 @@
 import uuid from 'uuid';
-import { GET_MOVIES, ADD_MOVIE, DELETE_MOVIE } from '../actions/types';
+import {
+	GET_MOVIES,
+	ADD_MOVIE,
+	DELETE_MOVIE,
+	MOVIES_LOADING,
+} from '../actions/types';
 
 const initialState = {
-	movies: [
-		{ id: uuid(), name: 'Godzilla' },
-		{ id: uuid(), name: 'Peter Pan' },
-		{ id: uuid(), name: 'Fight Club' },
-	],
+	movies: [],
+	loading: false,
 };
 
 export default function(state = initialState, action) {
@@ -20,6 +22,16 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				movies: state.movies.filter(movie => movie.id !== action.payload),
+			};
+		case ADD_MOVIE:
+			return {
+				...state,
+				movies: [action.payload, ...state.movies],
+			};
+		case MOVIES_LOADING:
+			return {
+				...state,
+				loading: true,
 			};
 		default:
 			return state;

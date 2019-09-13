@@ -6,9 +6,10 @@ export const getMovies = () => {
 	};
 };
 
-export const addMovie = () => {
+export const addMovie = movie => {
 	return {
 		type: ADD_MOVIE,
+		payload: movie,
 	};
 };
 
