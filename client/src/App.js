@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AppNavBar from './components/AppNavBar';
 import MovieList from './components/MovieList';
+import MovieModal from './components/MovieModal';
+import { Container } from 'reactstrap';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -14,7 +16,10 @@ class App extends Component {
 			<Provider store={store}>
 				<div className='App'>
 					<AppNavBar />
-					<MovieList />
+					<Container>
+						<MovieModal />
+						<MovieList />
+					</Container>
 				</div>
 			</Provider>
 		);
