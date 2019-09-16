@@ -16,12 +16,14 @@ export default function(state = initialState, action) {
 		case GET_MOVIES:
 			return {
 				...state,
+				movies: action.payload,
+				loading: false,
 			};
 		case DELETE_MOVIE:
 			// console.log(state);
 			return {
 				...state,
-				movies: state.movies.filter(movie => movie.id !== action.payload),
+				movies: state.movies.filter(movie => movie._id !== action.payload),
 			};
 		case ADD_MOVIE:
 			return {

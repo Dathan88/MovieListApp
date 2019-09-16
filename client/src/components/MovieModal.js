@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addMovie } from '../actions/movieActions';
-import uuid from 'uuid';
+
 class MovieModal extends Component {
 	state = {
 		modal: false,
@@ -32,7 +32,6 @@ class MovieModal extends Component {
 		e.preventDefault();
 
 		const newMovie = {
-			id: uuid(),
 			name: this.state.name,
 		};
 
