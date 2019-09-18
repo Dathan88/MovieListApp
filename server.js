@@ -1,35 +1,40 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const path = require('path');
-
-const movies = require('./routes/api/movies');
+const config = require('config');
 
 const app = express();
 
 // BODYPARSER MIDDLEWARE
-app.use(bodyParser.json());
+app.use(express.json());
 
 // DB CONFIG
-const db = require('./config/keys').mongoURI;
+const db = config.get('mongoURI');
 
 // CONNECT TO MONGO
 mongoose
-	.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+	.connect(db, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+	})
 	.then(() => console.log('MongoDB Connected...'))
 	.catch(err => console.log(err));
 
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.get('/', (req, res) => {
-// 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-
-app.get('/', (req, res) => {
-	res.send('Hello');
-});
-
 // USE ROUTES
-app.use('/api/movies', movies);
+app.use('/api/movies', require('./routes/api/movies'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+	// Set static folder
+	app.use(express.static('client/build'));
+
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
 
 const port = process.env.PORT || 5000;
 

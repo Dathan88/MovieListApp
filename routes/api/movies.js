@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
-// ITEM MODEL
+// Movie MODEL
 const Movie = require('../../models/Movie');
 
 // @route GET api/movies
@@ -16,8 +17,8 @@ router.get('/', (req, res) => {
 
 // @route POST api/movies
 // @desc Create a Movie
-// @access Public
-router.post('/', (req, res) => {
+// @access Private
+router.post('/', auth, (req, res) => {
 	const newMovie = new Movie({
 		name: req.body.name,
 	});
@@ -27,8 +28,8 @@ router.post('/', (req, res) => {
 
 // @route DELETE api/movies/:id
 // @desc Delete a Movie
-// @access Public
-router.delete('/:id', (req, res) => {
+// @access Private
+router.delete('/:id', auth, (req, res) => {
 	Movie.findById(req.params.id).then(movie =>
 		movie
 			.remove()
