@@ -6,9 +6,9 @@ import {
 	NavbarBrand,
 	Nav,
 	NavItem,
-	NavLink,
 	Container,
 } from 'reactstrap';
+import RegisterModal from './auth/RegisterModal';
 
 export default class AppNavBar extends Component {
 	state = {
@@ -27,11 +27,11 @@ export default class AppNavBar extends Component {
 				<Navbar color='dark' dark expand='sm' className='mb-5'>
 					<Container>
 						<NavbarBrand href='/'>Movie List</NavbarBrand>
-						<NavbarToggler onClick={this.toggle}></NavbarToggler>
-						<Collapse isOpen={this.state.isOpen}>
+						<NavbarToggler onClick={this.toggle} />
+						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className='ml-auto' navbar>
 								<NavItem>
-									<NavLink href='/'>Movie</NavLink>
+									<RegisterModal />
 								</NavItem>
 							</Nav>
 						</Collapse>
