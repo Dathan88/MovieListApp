@@ -32,10 +32,11 @@ class RegisterModal extends Component {
 	};
 
 	componentDidUpdate(prevProps) {
+		console.log(this.props, this.state.modal);
 		const { error, isAuthenticated } = this.props;
 		if (error !== prevProps.error) {
 			// Check for registration error
-			if (error.id) {
+			if (error.id === 'REGISTER_FAIL') {
 				this.setState({ msg: error.msg.msg });
 			} else {
 				this.setState({ msg: null });
@@ -43,8 +44,10 @@ class RegisterModal extends Component {
 		}
 
 		// If authenticated, close modal
-		if (this.state.modal && isAuthenticated) {
-			this.toggle();
+		if (this.state.modal) {
+			if (isAuthenticated) {
+				this.toggle();
+			}
 		}
 	}
 
@@ -73,9 +76,6 @@ class RegisterModal extends Component {
 		};
 
 		this.props.register(newUser);
-
-		// Close Modal
-		// this.toggle();
 	};
 
 	render() {
@@ -136,7 +136,6 @@ class RegisterModal extends Component {
 const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
 	error: state.error,
-	register: PropTypes.func.isRequired,
 });
 
 export default connect(
