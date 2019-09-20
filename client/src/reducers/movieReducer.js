@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import {
 	GET_MOVIES,
 	ADD_MOVIE,
