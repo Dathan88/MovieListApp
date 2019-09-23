@@ -6,6 +6,12 @@ import { getMovies, deleteMovie } from '../actions/movieActions';
 import PropTypes from 'prop-types';
 
 class MovieList extends Component {
+	static propTypes = {
+		getMovies: PropTypes.func.isRequired,
+		deleteMovie: PropTypes.func.isRequired,
+		movie: PropTypes.object.isRequired,
+		isAuthenticated: PropTypes.bool,
+	};
 	componentDidMount() {
 		this.props.getMovies();
 	}
@@ -23,14 +29,17 @@ class MovieList extends Component {
 						{movies.map(({ _id, name }) => (
 							<CSSTransition key={_id} timeout={500} classNames='fade'>
 								<ListGroupItem>
-									<Button
-										className='remove-btn'
-										color='danger'
-										size='sm'
-										onClick={this.onDeleteClick.bind(this, _id)}
-									>
-										&times;
-									</Button>
+									{this.props.isAuthenticated ? (
+										<Button
+											className='remove-btn'
+											color='danger'
+											size='sm'
+											onClick={this.onDeleteClick.bind(this, _id)}
+										>
+											&times;
+										</Button>
+									) : null}
+
 									{name}
 								</ListGroupItem>
 							</CSSTransition>
@@ -42,14 +51,9 @@ class MovieList extends Component {
 	}
 }
 
-MovieList.propTypes = {
-	getMovies: PropTypes.func.isRequired,
-	deleteMovie: PropTypes.func.isRequired,
-	movie: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = state => ({
 	movie: state.movie,
+	isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(

@@ -11,11 +11,16 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addMovie } from '../actions/movieActions';
+import PropTypes from 'prop-types';
 
 class MovieModal extends Component {
 	state = {
 		modal: false,
 		name: '',
+	};
+
+	static propTypes = {
+		isAuthenticated: PropTypes.bool,
 	};
 
 	toggle = () => {
@@ -45,9 +50,14 @@ class MovieModal extends Component {
 	render() {
 		return (
 			<div>
-				<Button className='mb-2' color='dark' onClick={this.toggle}>
-					Add Movie
-				</Button>
+				{this.props.isAuthenticated ? (
+					<Button className='mb-2' color='dark' onClick={this.toggle}>
+						Add Movie
+					</Button>
+				) : (
+					<h4 className='mb-3 ml-4'>Please log in to manage movies</h4>
+				)}
+
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add to Movie List</ModalHeader>
 					<ModalBody>
@@ -75,6 +85,7 @@ class MovieModal extends Component {
 
 const mapStateToProps = state => ({
 	movies: state.movies,
+	isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(
