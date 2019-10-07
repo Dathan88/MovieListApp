@@ -55,6 +55,7 @@ export const register = ({ name, email, password }) => dispatch => {
 		)
 		.catch(err => {
 			dispatch(
+				console.log(err.response),
 				returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
 			);
 			dispatch({
