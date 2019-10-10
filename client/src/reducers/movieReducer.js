@@ -19,7 +19,6 @@ export default function(state = initialState, action) {
 				loading: false,
 			};
 		case DELETE_MOVIE:
-			// console.log(state);
 			return {
 				...state,
 				movies: state.movies.filter(movie => movie._id !== action.payload),

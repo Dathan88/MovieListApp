@@ -32,7 +32,6 @@ class LoginModal extends Component {
 	};
 
 	componentDidUpdate(prevProps) {
-		console.log(this.props, this.state.modal);
 		const { error, isAuthenticated } = this.props;
 		if (error !== prevProps.error) {
 			// Check for registration error
