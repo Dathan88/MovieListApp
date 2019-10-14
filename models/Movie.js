@@ -3,9 +3,19 @@ const Schema = mongoose.Schema;
 
 // CREATE SCHEMA
 const MovieSchema = new Schema({
-	name: {
+	poster: {
+		type: String,
+	},
+	title: {
 		type: String,
 		required: true,
+	},
+	overview: {
+		type: String,
+		required: true,
+	},
+	releaseDate: {
+		type: Date,
 	},
 	date: {
 		type: Date,

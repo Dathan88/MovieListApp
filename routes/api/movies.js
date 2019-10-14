@@ -20,7 +20,10 @@ router.get('/', (req, res) => {
 // @access Private
 router.post('/', auth, (req, res) => {
 	const newMovie = new Movie({
-		name: req.body.name,
+		poster: req.body.poster,
+		title: req.body.title,
+		overview: req.body.overview,
+		releaseDate: req.body.releaseDate,
 	});
 
 	newMovie.save().then(movie => res.json(movie));
