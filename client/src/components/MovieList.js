@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { Container, ListGroup, ListGroupItem, Button, Table } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getMovies, deleteMovie } from '../actions/movieActions';
@@ -11,7 +11,9 @@ class MovieList extends Component {
 		deleteMovie: PropTypes.func.isRequired,
 		movie: PropTypes.object.isRequired,
 		isAuthenticated: PropTypes.bool,
+		auth: PropTypes.object.isRequired,
 	};
+
 	componentDidMount() {
 		this.props.getMovies();
 	}
@@ -23,28 +25,41 @@ class MovieList extends Component {
 	render() {
 		const { movies } = this.props.movie;
 		return (
-			<Container>
+			<Container style={{ padding: 0 }}>
 				<ListGroup>
-					<TransitionGroup className='movieList'>
-						{movies.map(({ _id, name }) => (
-							<CSSTransition key={_id} timeout={500} classNames='fade'>
-								<ListGroupItem>
-									{this.props.isAuthenticated ? (
-										<Button
-											className='remove-btn'
-											color='danger'
-											size='sm'
-											onClick={this.onDeleteClick.bind(this, _id)}
-										>
-											&times;
-										</Button>
-									) : null}
-
-									{name}
-								</ListGroupItem>
-							</CSSTransition>
-						))}
-					</TransitionGroup>
+					{this.props.isAuthenticated ? (
+						<TransitionGroup className='movieList'>
+							{movies.map(({ _id, title, poster, overview }) => (
+								<CSSTransition key={_id} timeout={500} classtitles='fade'>
+									<ListGroupItem style={{ padding: 0 }}>
+										<Table className='mb-0' hover dark size='sm'>
+											<tbody>
+												<tr>
+													<td>
+														<Button
+															className='remove-btn'
+															color='danger'
+															size='sm'
+															onClick={this.onDeleteClick.bind(this, _id)}
+														>
+															&times;
+														</Button>
+													</td>
+													<td>
+														<img alt='poster' width='120' src={poster} />
+													</td>
+													<td>
+														<h3>{title}</h3>
+														<p>{overview}</p>
+													</td>
+												</tr>
+											</tbody>
+										</Table>
+									</ListGroupItem>
+								</CSSTransition>
+							))}
+						</TransitionGroup>
+					) : null}
 				</ListGroup>
 			</Container>
 		);
@@ -54,6 +69,7 @@ class MovieList extends Component {
 const mapStateToProps = state => ({
 	movie: state.movie,
 	isAuthenticated: state.auth.isAuthenticated,
+	auth: state.auth,
 });
 
 export default connect(
