@@ -15,7 +15,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import MovieRow from './MovieRow';
 
-require('dotenv').config();
+const apiKey = process.env.REACT_APP_API_KEY;
+// const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 class MovieModal extends Component {
 	state = {
@@ -34,7 +35,6 @@ class MovieModal extends Component {
 	};
 
 	onChange = e => {
-		// console.log(e.target.value);
 		const boundObject = this;
 		const searchTerm = e.target.value;
 		boundObject.performSearch(searchTerm);
@@ -44,8 +44,6 @@ class MovieModal extends Component {
 	};
 
 	performSearch = searchTerm => {
-		const apiKey = process.env.API_KEY;
-		// const accessToken = process.env.ACCESS_TOKEN;
 		let searchProp = searchTerm.split(' ').join('+');
 		let baseUrl = 'https://api.themoviedb.org/3/';
 		let api = `&api_key=${apiKey}`;
