@@ -12,6 +12,10 @@ import {
 import { connect } from 'react-redux';
 import { addMovie } from '../actions/movieActions';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import MovieRow from './MovieRow';
+
+require('dotenv').config();
 
 class MovieModal extends Component {
 	state = {
@@ -30,21 +34,44 @@ class MovieModal extends Component {
 	};
 
 	onChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
+		// console.log(e.target.value);
+		const boundObject = this;
+		const searchTerm = e.target.value;
+		boundObject.performSearch(searchTerm);
+
+		// this.setState({ [e.target.name]: e.target.value });
+		// this.props.addMovie(this.state.name);
 	};
 
-	onSubmit = e => {
-		e.preventDefault();
+	performSearch = searchTerm => {
+		const apiKey = process.env.API_KEY;
+		// const accessToken = process.env.ACCESS_TOKEN;
+		let searchProp = searchTerm.split(' ').join('+');
+		let baseUrl = 'https://api.themoviedb.org/3/';
+		let api = `&api_key=${apiKey}`;
+		let movieSearch = `search/movie?query=${searchProp}`;
 
-		const newMovie = {
-			name: this.state.name,
-		};
+		axios({
+			method: 'get',
+			url: baseUrl + movieSearch + api,
+		})
+			.then(res => {
+				let results = res.data.results;
+				let movieRows = [];
 
-		// Add movie via addMovie action
-		this.props.addMovie(newMovie);
+				results.forEach(movie => {
+					movie.poster_src =
+						'https://image.tmdb.org/t/p/w185' + movie.poster_path;
+					const movieRow = <MovieRow key={movie.id} movie={movie} />;
+					movieRows.push(movieRow);
+				});
+
+				this.setState({ rows: movieRows });
+			})
+			.catch(err => console.log(err));
 
 		// Close Modal
-		this.toggle();
+		// this.toggle();
 	};
 
 	render() {
@@ -61,7 +88,7 @@ class MovieModal extends Component {
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
 					<ModalHeader toggle={this.toggle}>Add to Movie List</ModalHeader>
 					<ModalBody>
-						<Form onSubmit={this.onSubmit}>
+						<Form>
 							<FormGroup>
 								<Label for='movie'>Movie</Label>
 								<Input
@@ -71,9 +98,7 @@ class MovieModal extends Component {
 									placeholder='Add movie to list'
 									onChange={this.onChange}
 								/>
-								<Button className='mt-2' color='dark' block>
-									Add Movie
-								</Button>
+								{this.state.rows}
 							</FormGroup>
 						</Form>
 					</ModalBody>
