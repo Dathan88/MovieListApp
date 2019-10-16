@@ -27,15 +27,15 @@ class MovieList extends Component {
 		return (
 			<Container style={{ padding: 0 }}>
 				<ListGroup>
-					{this.props.isAuthenticated ? (
-						<TransitionGroup className='movieList'>
-							{movies.map(({ _id, title, poster, overview }) => (
-								<CSSTransition key={_id} timeout={500} classtitles='fade'>
-									<ListGroupItem style={{ padding: 0 }}>
-										<Table className='mb-0' hover dark size='sm'>
-											<tbody>
-												<tr>
-													<td>
+					<TransitionGroup className='movieList'>
+						{movies.map(({ _id, title, poster, overview }) => (
+							<CSSTransition key={_id} timeout={500} classtitles='fade'>
+								<ListGroupItem style={{ padding: 0 }}>
+									<Table className='mb-0' hover dark size='sm'>
+										<tbody>
+											<tr>
+												<td>
+													{this.props.isAuthenticated ? (
 														<Button
 															className='remove-btn'
 															color='danger'
@@ -44,22 +44,22 @@ class MovieList extends Component {
 														>
 															&times;
 														</Button>
-													</td>
-													<td>
-														<img alt='poster' width='120' src={poster} />
-													</td>
-													<td>
-														<h3>{title}</h3>
-														<p>{overview}</p>
-													</td>
-												</tr>
-											</tbody>
-										</Table>
-									</ListGroupItem>
-								</CSSTransition>
-							))}
-						</TransitionGroup>
-					) : null}
+													) : null}
+												</td>
+												<td>
+													<img alt='poster' width='120' src={poster} />
+												</td>
+												<td>
+													<h3>{title}</h3>
+													<p>{overview}</p>
+												</td>
+											</tr>
+										</tbody>
+									</Table>
+								</ListGroupItem>
+							</CSSTransition>
+						))}
+					</TransitionGroup>
 				</ListGroup>
 			</Container>
 		);
