@@ -7,12 +7,15 @@ import {
 	Nav,
 	NavItem,
 	Container,
+	Media,
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
+
+import APILogo from '../logos/rectangle-green.svg';
 
 class AppNavBar extends Component {
 	state = {
@@ -59,8 +62,18 @@ class AppNavBar extends Component {
 		return (
 			<React.Fragment>
 				<Navbar color='dark' dark expand='sm' className='mb-5'>
-					<Container>
-						<NavbarBrand href='/'>Movie List</NavbarBrand>
+					<Container className='ml-0'>
+						<Media>
+							<Media href='https://www.themoviedb.org/' className='mr-4'>
+								<Media
+									object
+									src={APILogo}
+									style={{ height: '40px'}}
+									alt='The Movie DB logo'
+								/>
+							</Media>
+						</Media>
+						<NavbarBrand style={{color: 'white'}}>Movie List</NavbarBrand>
 						<NavbarToggler onClick={this.toggle} />
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className='ml-auto' navbar>
