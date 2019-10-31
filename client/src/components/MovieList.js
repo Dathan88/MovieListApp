@@ -25,7 +25,7 @@ class MovieList extends Component {
 	render() {
 		const { movies } = this.props.movie;
 		return (
-			<Container style={{ padding: 0 }}>
+			<Container style={{ padding: 0, marginBottom: '3rem' }}>
 				<ListGroup>
 					<TransitionGroup className='movieList'>
 						{movies.map(({ _id, title, poster, overview }) => (
