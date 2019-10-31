@@ -1,3 +1,12 @@
+/* html {
+	overflow-x: hidden;
+	overflow-y: hidden;
+} */
+
+::-webkit-scrollbar {
+	width: 0 !important;
+}
+
 .remove-btn {
 	margin-right: 0.5rem;
 }
@@ -18,4 +27,21 @@
 .fade-exit-active {
 	opacity: 0.01;
 	transition: opacity 1000ms ease-out;
+}
+
+.footer {
+	position: fixed;
+	display: block;
+	bottom: 0;
+	width: 100%;
+	height: 2.5rem;
+	margin: auto;
+	text-align: center;
+	line-height: 2.5rem;
+	color: #081c24;
+	background-color: #01d277;
+	border-color: #081c24;
+	font-weight: 700;
+	font-size: 0.8rem;
+	padding: 0;
 }

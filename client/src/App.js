@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AppNavBar from './components/AppNavBar';
 import MovieList from './components/MovieList';
 import MovieModal from './components/MovieModal';
-import { Container } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -24,6 +24,12 @@ class App extends Component {
 						<MovieModal />
 						<MovieList />
 					</Container>
+					<Row className='footer'>
+						<Col sm='auto' xs='auto'>
+							This product uses the TMDb API but is not endorsed or certified by
+							TMDb.
+						</Col>
+					</Row>
 				</div>
 			</Provider>
 		);
