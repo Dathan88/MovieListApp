@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Movie app build using the MERN stack",
 	"main": "server.js",
+	"private": true,
 	"scripts": {
 		"client-install": "npm i --prefix client",
 		"start": "node server.js",
@@ -22,7 +23,7 @@
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.7.7"
+		"mongoose": "^5.7.8"
 	},
 	"devDependencies": {
 		"nodemon": "^1.19.4"
