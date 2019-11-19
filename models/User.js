@@ -1,7 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// CREATE SCHEMA
+// CREATE SCHEMA'S
+const MovieSchema = new Schema({
+	poster: {
+		type: String,
+	},
+	title: {
+		type: String,
+		required: true,
+	},
+	overview: {
+		type: String,
+		required: true,
+	},
+	releaseDate: {
+		type: Date,
+	},
+	date: {
+		type: Date,
+		default: Date.now,
+	},
+});
+
 const UserSchema = new Schema({
 	name: {
 		type: String,
@@ -20,7 +41,13 @@ const UserSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	movies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }],
+	movieList: [MovieSchema],
 });
 
-module.exports = User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+const Movie = mongoose.model('Movie', MovieSchema);
+
+module.exports = {
+	User,
+	Movie,
+};
