@@ -25,7 +25,7 @@ class MovieList extends Component {
 
 	onDeleteClick = id => {
 		const { user } = this.props.auth;
-		this.props.deleteMovie(id, user._id);
+		this.props.deleteMovie(id, user.id);
 	};
 
 	render() {
