@@ -15,7 +15,6 @@ class MovieList extends Component {
 	};
 
 	componentDidMount() {
-		console.log(this.props);
 		const { userId } = this.props.auth;
 		this.props.getMovies(userId);
 	}
