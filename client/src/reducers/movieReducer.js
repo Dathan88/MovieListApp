@@ -30,6 +30,10 @@ export default function(state = initialState, action) {
 				movies: [...state.movies, action.payload],
 			};
 		case MOVIES_LOADING:
+			return {
+				...state,
+				loading: true,
+			};
 		case LOGOUT_SUCCESS:
 			return {
 				movies: [],

@@ -16,11 +16,11 @@ class MovieList extends Component {
 
 	componentDidMount() {
 		const { userId } = this.props.auth;
-		console.log(this.props.auth);
-		console.log(this.props.movie);
-		setTimeout(() => {
-			this.props.getMovies(userId);
-		}, 500);
+		if (userId) {
+			setTimeout(() => {
+				this.props.getMovies(userId);
+			}, 500);
+		}
 	}
 
 	onDeleteClick = id => {

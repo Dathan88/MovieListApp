@@ -32,7 +32,7 @@ class MovieRow extends React.Component {
 			releaseDate: release_date,
 		};
 
-		this.props.addMovie(newMovie, user._id);
+		this.props.addMovie(newMovie, user.id);
 	};
 
 	render() {
