@@ -10,6 +10,7 @@ import {
 	LOGOUT_SUCCESS,
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
+	GET_MOVIES,
 } from './types';
 
 // Check token & load user
@@ -78,12 +79,16 @@ export const login = ({ email, password }) => dispatch => {
 
 	axios
 		.post('/api/auth', body, config)
-		.then(res =>
+		.then(res => {
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: res.data,
-			})
-		)
+			});
+			dispatch({
+				type: GET_MOVIES,
+				payload: res.data.user.movieList,
+			});
+		})
 		.catch(err => {
 			dispatch(
 				returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')

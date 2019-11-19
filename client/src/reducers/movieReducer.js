@@ -3,6 +3,7 @@ import {
 	ADD_MOVIE,
 	DELETE_MOVIE,
 	MOVIES_LOADING,
+	LOGOUT_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -29,8 +30,9 @@ export default function(state = initialState, action) {
 				movies: [...state.movies, action.payload],
 			};
 		case MOVIES_LOADING:
+		case LOGOUT_SUCCESS:
 			return {
-				...state,
+				movies: [],
 				loading: true,
 			};
 		default:

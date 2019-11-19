@@ -13,7 +13,6 @@ const { User } = require('../../models/User');
 // @access Public
 router.post('/', (req, res) => {
 	const { email, password } = req.body;
-	console.log(email, password);
 
 	// Simple validation
 	if (!email || !password) {
@@ -53,10 +52,10 @@ router.post('/', (req, res) => {
 // @desc Get user data
 // @access Private
 router.get('/user', auth, (req, res) => {
-	// console.log(req.user.id);
 	User.findById(req.user.id)
 		.select('-password')
-		.then(user => res.json(user));
+		.then(user => res.json(user))
+		.catch(err => console.log(err));
 });
 
 module.exports = router;
