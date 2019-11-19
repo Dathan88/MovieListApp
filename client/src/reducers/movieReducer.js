@@ -26,7 +26,7 @@ export default function(state = initialState, action) {
 		case ADD_MOVIE:
 			return {
 				...state,
-				movies: [action.payload, ...state.movies],
+				movies: [...state.movies, action.payload],
 			};
 		case MOVIES_LOADING:
 			return {

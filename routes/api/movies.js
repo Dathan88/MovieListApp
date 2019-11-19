@@ -30,7 +30,7 @@ router.post('/:userId', auth, (req, res) => {
 			});
 
 			user.movieList.push(newMovie);
-			user.save().then(res.json(user.movieList));
+			user.save().then(res.json(newMovie));
 		})
 		.catch(err => console.log(err));
 });
