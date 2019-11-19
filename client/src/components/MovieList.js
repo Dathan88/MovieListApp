@@ -15,27 +15,30 @@ class MovieList extends Component {
 	};
 
 	componentDidMount() {
-		this.props.getMovies();
+		console.log(this.props);
+		const { userId } = this.props.auth;
+		this.props.getMovies(userId);
 	}
 
 	onDeleteClick = id => {
-		this.props.deleteMovie(id);
+		const { user } = this.props.auth;
+		this.props.deleteMovie(id, user._id);
 	};
 
 	render() {
 		const { movies } = this.props.movie;
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
-				<ListGroup>
-					<TransitionGroup className='movieList'>
-						{movies.map(({ _id, title, poster, overview }) => (
-							<CSSTransition key={_id} timeout={500} classtitles='fade'>
-								<ListGroupItem style={{ padding: 0 }}>
-									<Table className='mb-0' hover dark size='sm'>
-										<tbody>
-											<tr>
-												<td>
-													{this.props.isAuthenticated ? (
+				{this.props.isAuthenticated ? (
+					<ListGroup>
+						<TransitionGroup className='movieList'>
+							{movies.map(({ _id, title, poster, overview }) => (
+								<CSSTransition key={_id} timeout={500} classtitles='fade'>
+									<ListGroupItem style={{ padding: 0 }}>
+										<Table className='mb-0' hover dark size='sm'>
+											<tbody>
+												<tr>
+													<td>
 														<Button
 															className='remove-btn'
 															color='danger'
@@ -44,23 +47,23 @@ class MovieList extends Component {
 														>
 															&times;
 														</Button>
-													) : null}
-												</td>
-												<td>
-													<img alt='poster' width='120' src={poster} />
-												</td>
-												<td>
-													<h3>{title}</h3>
-													<p>{overview}</p>
-												</td>
-											</tr>
-										</tbody>
-									</Table>
-								</ListGroupItem>
-							</CSSTransition>
-						))}
-					</TransitionGroup>
-				</ListGroup>
+													</td>
+													<td>
+														<img alt='poster' width='120' src={poster} />
+													</td>
+													<td>
+														<h3>{title}</h3>
+														<p>{overview}</p>
+													</td>
+												</tr>
+											</tbody>
+										</Table>
+									</ListGroupItem>
+								</CSSTransition>
+							))}
+						</TransitionGroup>
+					</ListGroup>
+				) : null}
 			</Container>
 		);
 	}
@@ -72,7 +75,4 @@ const mapStateToProps = state => ({
 	auth: state.auth,
 });
 
-export default connect(
-	mapStateToProps,
-	{ getMovies, deleteMovie }
-)(MovieList);
+export default connect(mapStateToProps, { getMovies, deleteMovie })(MovieList);

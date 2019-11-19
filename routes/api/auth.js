@@ -6,13 +6,14 @@ const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 
 // User MODEL
-const User = require('../../models/User');
+const { User } = require('../../models/User');
 
 // @route POST api/auth
 // @desc Authenticate user
 // @access Public
 router.post('/', (req, res) => {
 	const { email, password } = req.body;
+	console.log(email, password);
 
 	// Simple validation
 	if (!email || !password) {
@@ -39,6 +40,7 @@ router.post('/', (req, res) => {
 							id: user.id,
 							name: user.name,
 							email: user.email,
+							movieList: user.movieList,
 						},
 					});
 				}
@@ -51,6 +53,7 @@ router.post('/', (req, res) => {
 // @desc Get user data
 // @access Private
 router.get('/user', auth, (req, res) => {
+	// console.log(req.user.id);
 	User.findById(req.user.id)
 		.select('-password')
 		.then(user => res.json(user));

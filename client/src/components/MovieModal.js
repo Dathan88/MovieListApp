@@ -15,7 +15,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import MovieRow from './MovieRow';
 
-const apiKey = process.env.REACT_APP_API_KEY;
+const apiKey = 'c6012120c5ba5e4fa6a37626777b527f';
+// const apiKey = process.env.REACT_APP_API_KEY;
 // const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 class MovieModal extends Component {

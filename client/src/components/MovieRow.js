@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Table } from 'reactstrap';
 import { addMovie } from '../actions/movieActions';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class MovieRow extends React.Component {
 	state = {
@@ -11,15 +12,18 @@ class MovieRow extends React.Component {
 		releaseDate: '',
 	};
 
+	static propTypes = {
+		auth: PropTypes.object.isRequired,
+	};
+
 	viewMovie() {
 		const url = 'https://www.themoviedb.org/movie/' + this.props.movie.id;
 		window.location.href = url;
 	}
 
 	addNewMovie = () => {
-		console.log(this);
-
-		const {poster_src, title, overview, release_date} = this.props.movie;
+		const { user } = this.props.auth;
+		const { poster_src, title, overview, release_date } = this.props.movie;
 
 		const newMovie = {
 			poster: poster_src,
@@ -27,10 +31,9 @@ class MovieRow extends React.Component {
 			overview,
 			releaseDate: release_date,
 		};
+		console.log(user);
 
-		// console.log(newMovie);
-
-		this.props.addMovie(newMovie);
+		this.props.addMovie(newMovie, user._id);
 	};
 
 	render() {
@@ -70,9 +73,7 @@ class MovieRow extends React.Component {
 const mapStateToProps = state => ({
 	movies: state.movies,
 	isAuthenticated: state.auth.isAuthenticated,
+	auth: state.auth,
 });
 
-export default connect(
-	mapStateToProps,
-	{ addMovie }
-)(MovieRow);
+export default connect(mapStateToProps, { addMovie })(MovieRow);
