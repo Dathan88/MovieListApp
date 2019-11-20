@@ -36,7 +36,7 @@ class MovieList extends Component {
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
 				{this.props.isAuthenticated
-					? (LogRocket.identify(userId, {
+					? (LogRocket.identify(user.id, {
 							name: user.name,
 							email: user.email,
 					  }),
