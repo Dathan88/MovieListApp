@@ -38,9 +38,6 @@ class MovieModal extends Component {
 		const boundObject = this;
 		const searchTerm = e.target.value;
 		boundObject.performSearch(searchTerm);
-
-		// this.setState({ [e.target.name]: e.target.value });
-		// this.props.addMovie(this.state.name);
 	};
 
 	performSearch = searchTerm => {
@@ -63,13 +60,9 @@ class MovieModal extends Component {
 					const movieRow = <MovieRow key={movie.id} movie={movie} />;
 					movieRows.push(movieRow);
 				});
-
 				this.setState({ rows: movieRows });
 			})
 			.catch(err => console.log(err));
-
-		// Close Modal
-		// this.toggle();
 	};
 
 	render() {
@@ -111,7 +104,4 @@ const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(
-	mapStateToProps,
-	{ addMovie }
-)(MovieModal);
+export default connect(mapStateToProps, { addMovie })(MovieModal);

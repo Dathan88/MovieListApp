@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getMovies, deleteMovie } from '../actions/movieActions';
 import PropTypes from 'prop-types';
 
+import LogRocket from 'logrocket';
+
 class MovieList extends Component {
 	static propTypes = {
 		getMovies: PropTypes.func.isRequired,
@@ -29,44 +31,51 @@ class MovieList extends Component {
 	};
 
 	render() {
+		const { userId, user } = this.props.auth;
 		const { movies } = this.props.movie;
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
-				{this.props.isAuthenticated ? (
-					<ListGroup>
-						<TransitionGroup className='movieList'>
-							{movies.map(({ _id, title, poster, overview }) => (
-								<CSSTransition key={_id} timeout={500} classtitles='fade'>
-									<ListGroupItem style={{ padding: 0 }}>
-										<Table className='mb-0' hover dark size='sm'>
-											<tbody>
-												<tr>
-													<td>
-														<Button
-															className='remove-btn'
-															color='danger'
-															size='sm'
-															onClick={this.onDeleteClick.bind(this, _id)}
-														>
-															&times;
-														</Button>
-													</td>
-													<td>
-														<img alt='poster' width='120' src={poster} />
-													</td>
-													<td>
-														<h3>{title}</h3>
-														<p>{overview}</p>
-													</td>
-												</tr>
-											</tbody>
-										</Table>
-									</ListGroupItem>
-								</CSSTransition>
-							))}
-						</TransitionGroup>
-					</ListGroup>
-				) : null}
+				{this.props.isAuthenticated
+					? (LogRocket.identify(userId, {
+							name: user.name,
+							email: user.email,
+					  }),
+					  (
+							<ListGroup>
+								<TransitionGroup className='movieList'>
+									{movies.map(({ _id, title, poster, overview }) => (
+										<CSSTransition key={_id} timeout={500} classtitles='fade'>
+											<ListGroupItem style={{ padding: 0 }}>
+												<Table className='mb-0' hover dark size='sm'>
+													<tbody>
+														<tr>
+															<td>
+																<Button
+																	className='remove-btn'
+																	color='danger'
+																	size='sm'
+																	onClick={this.onDeleteClick.bind(this, _id)}
+																>
+																	&times;
+																</Button>
+															</td>
+															<td>
+																<img alt='poster' width='120' src={poster} />
+															</td>
+															<td>
+																<h3>{title}</h3>
+																<p>{overview}</p>
+															</td>
+														</tr>
+													</tbody>
+												</Table>
+											</ListGroupItem>
+										</CSSTransition>
+									))}
+								</TransitionGroup>
+							</ListGroup>
+					  ))
+					: null}
 			</Container>
 		);
 	}
