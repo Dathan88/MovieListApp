@@ -31,7 +31,7 @@ class MovieList extends Component {
 	};
 
 	render() {
-		const { userId, user } = this.props.auth;
+		const { user } = this.props.auth;
 		const { movies } = this.props.movie;
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
