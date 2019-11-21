@@ -22,10 +22,11 @@ class MovieModal extends Component {
 	state = {
 		modal: false,
 		name: '',
+		rows: [],
 	};
 
 	static propTypes = {
-		isAuthenticated: PropTypes.bool,
+		auth: PropTypes.object.isRequired,
 	};
 
 	toggle = () => {
@@ -53,12 +54,25 @@ class MovieModal extends Component {
 			.then(res => {
 				let results = res.data.results;
 				let movieRows = [];
+				let userTitles = [];
+
+				const { movieList } = this.props.auth.user;
+				movieList.map(userMovie => userTitles.push(userMovie.title));
 
 				results.forEach(movie => {
-					movie.poster_src =
-						'https://image.tmdb.org/t/p/w185' + movie.poster_path;
-					const movieRow = <MovieRow key={movie.id} movie={movie} />;
-					movieRows.push(movieRow);
+					if (!userTitles.includes(movie.title)) {
+						movie.poster_src =
+							'https://image.tmdb.org/t/p/w185' + movie.poster_path;
+						const movieRow = (
+							<MovieRow
+								key={movie.id}
+								movie={movie}
+								deleteRow={this.deleteRow}
+							/>
+						);
+
+						movieRows.push(movieRow);
+					}
 				});
 				this.setState({ rows: movieRows });
 			})
@@ -66,14 +80,17 @@ class MovieModal extends Component {
 	};
 
 	render() {
+		const { isAuthenticated } = this.props.auth;
 		return (
 			<div>
-				{this.props.isAuthenticated ? (
+				{isAuthenticated ? (
 					<Button className='mb-2' color='dark' onClick={this.toggle}>
 						Add Movie
 					</Button>
 				) : (
-					<h4 className='mb-3 ml-4'>Please log in to manage movies</h4>
+					<h4 className='mb-3 ml-4'>
+						Please log in or register to manage your movies
+					</h4>
 				)}
 
 				<Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -100,8 +117,7 @@ class MovieModal extends Component {
 }
 
 const mapStateToProps = state => ({
-	movies: state.movies,
-	isAuthenticated: state.auth.isAuthenticated,
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps, { addMovie })(MovieModal);

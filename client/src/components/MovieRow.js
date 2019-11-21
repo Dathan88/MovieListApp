@@ -10,6 +10,7 @@ class MovieRow extends React.Component {
 		title: '',
 		overview: '',
 		releaseDate: '',
+		added: false,
 	};
 
 	static propTypes = {
@@ -36,16 +37,17 @@ class MovieRow extends React.Component {
 	};
 
 	render() {
+		const { movie } = this.props;
 		return (
-			<Table key={this.props.movie.id}>
+			<Table key={movie.id} className={this.state.added ? 'hidden' : 'table'}>
 				<tbody>
 					<tr>
 						<td>
-							<img alt='poster' width='120' src={this.props.movie.poster_src} />
+							<img alt='poster' width='120' src={movie.poster_src} />
 						</td>
 						<td>
-							<h3>{this.props.movie.title}</h3>
-							<p>{this.props.movie.overview}</p>
+							<h3>{movie.title}</h3>
+							<p>{movie.overview}</p>
 							<Button
 								type='button'
 								onClick={this.viewMovie.bind(this)}
@@ -56,7 +58,10 @@ class MovieRow extends React.Component {
 							<Button
 								className='ml-2'
 								type='button'
-								onClick={this.addNewMovie.bind(this)}
+								onClick={e => {
+									this.addNewMovie(e);
+									this.setState({ added: true });
+								}}
 								color='success'
 							>
 								Add To List
@@ -70,8 +75,6 @@ class MovieRow extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	movies: state.movies,
-	isAuthenticated: state.auth.isAuthenticated,
 	auth: state.auth,
 });
 
