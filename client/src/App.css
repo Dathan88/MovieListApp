@@ -46,6 +46,10 @@
 	padding: 0;
 }
 
+.hidden {
+	display: none;
+}
+
 /*! Media Queries */
 @media screen and (max-width: 500px) {
 	.footer {
