@@ -54,13 +54,13 @@ class MovieModal extends Component {
 			.then(res => {
 				let results = res.data.results;
 				let movieRows = [];
-				let userTitles = [];
+				let movieTitles = [];
 
 				const { movieList } = this.props.auth.user;
-				movieList.map(userMovie => userTitles.push(userMovie.title));
+				movieList.map(userMovie => movieTitles.push(userMovie.title));
 
 				results.forEach(movie => {
-					if (!userTitles.includes(movie.title)) {
+					if (!movieTitles.includes(movie.title)) {
 						movie.poster_src =
 							'https://image.tmdb.org/t/p/w185' + movie.poster_path;
 						const movieRow = (
