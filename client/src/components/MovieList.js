@@ -30,9 +30,12 @@ class MovieList extends Component {
 		this.props.deleteMovie(id, user.id);
 	};
 
+	//! Badge pill on movies for rating? popularity?
+	//! Also tabs and collapse movies in list: uncontrolled collapse?
 	render() {
 		const { user } = this.props.auth;
 		const { movies } = this.props.movie;
+		console.log(movies);
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
 				{this.props.isAuthenticated
