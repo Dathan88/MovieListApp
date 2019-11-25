@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button, Table } from 'reactstrap';
+import {
+	Container,
+	ListGroup,
+	ListGroupItem,
+	Button,
+	Table,
+	Dropdown,
+	UncontrolledDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem,
+} from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getMovies, deleteMovie } from '../actions/movieActions';
@@ -38,6 +49,7 @@ class MovieList extends Component {
 		console.log(movies);
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
+				<DropdownItem divider />
 				{this.props.isAuthenticated
 					? (LogRocket.identify(user.id, {
 							name: user.name,
@@ -48,31 +60,47 @@ class MovieList extends Component {
 								<TransitionGroup className='movieList'>
 									{movies.map(({ _id, title, poster, overview }) => (
 										<CSSTransition key={_id} timeout={500} classtitles='fade'>
-											<ListGroupItem style={{ padding: 0 }}>
-												<Table className='mb-0' hover dark size='sm'>
-													<tbody>
-														<tr>
-															<td>
-																<Button
-																	className='remove-btn'
-																	color='danger'
-																	size='sm'
-																	onClick={this.onDeleteClick.bind(this, _id)}
-																>
-																	&times;
-																</Button>
-															</td>
-															<td>
-																<img alt='poster' width='120' src={poster} />
-															</td>
-															<td>
-																<h3>{title}</h3>
-																<p>{overview}</p>
-															</td>
-														</tr>
-													</tbody>
-												</Table>
-											</ListGroupItem>
+											<UncontrolledDropdown>
+												<DropdownToggle size='sm' caret>
+													{title}
+												</DropdownToggle>
+												<DropdownMenu className='dropDownMenu'>
+													<DropdownItem tag='a' className='dropDownItem'>
+														<ListGroupItem style={{ padding: 0 }}>
+															<Table className='mb-0' hover dark size='sm'>
+																<tbody>
+																	<tr>
+																		<td>
+																			<Button
+																				className='remove-btn'
+																				color='danger'
+																				size='sm'
+																				onClick={this.onDeleteClick.bind(
+																					this,
+																					_id
+																				)}
+																			>
+																				&times;
+																			</Button>
+																		</td>
+																		<td>
+																			<img
+																				alt='poster'
+																				width='120'
+																				src={poster}
+																			/>
+																		</td>
+																		<td>
+																			<h3>{title}</h3>
+																			<p>{overview}</p>
+																		</td>
+																	</tr>
+																</tbody>
+															</Table>
+														</ListGroupItem>
+													</DropdownItem>
+												</DropdownMenu>
+											</UncontrolledDropdown>
 										</CSSTransition>
 									))}
 								</TransitionGroup>

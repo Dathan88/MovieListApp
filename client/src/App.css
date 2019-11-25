@@ -50,6 +50,29 @@
 	display: none;
 }
 
+.dropdown {
+	margin-bottom: 0.1rem;
+}
+
+.dropDownMenu {
+	padding: 0 !important;
+}
+
+.dropDownItem {
+	padding: 0 !important;
+	white-space: normal !important;
+}
+
+.btn-secondary {
+	color: #212529;
+	background-color: #01d277;
+}
+
+.btn-secondary:hover {
+	color: #01d277;
+	background-color: #212529;
+}
+
 /*! Media Queries */
 @media screen and (max-width: 500px) {
 	.footer {
