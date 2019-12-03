@@ -72,7 +72,7 @@ class MovieList extends Component {
 																	<tr>
 																		<td>
 																			<Button
-																				className='remove-btn'
+																				className='lg-screen remove-btn'
 																				color='danger'
 																				size='sm'
 																				onClick={this.onDeleteClick.bind(
@@ -82,17 +82,38 @@ class MovieList extends Component {
 																			>
 																				&times;
 																			</Button>
+																			<Button
+																				className='sm-screen remove-btn'
+																				color='danger'
+																				size='sm'
+																				onClick={this.onDeleteClick.bind(
+																					this,
+																					_id
+																				)}
+																			>
+																				Delete
+																			</Button>
 																		</td>
 																		<td>
 																			<img
 																				alt='poster'
 																				width='120'
+																				height='180'
 																				src={poster}
 																			/>
 																		</td>
-																		<td>
-																			<h3>{title}</h3>
-																			<p>{overview}</p>
+																		<td className='td-summary'>
+																			<h3>
+																				{title}{' '}
+																				<Button
+																					className='btn-close'
+																					color='warning'
+																					size='sm'
+																				>
+																					&times;
+																				</Button>
+																			</h3>
+																			<p className='summary'>{overview}</p>
 																		</td>
 																	</tr>
 																</tbody>
