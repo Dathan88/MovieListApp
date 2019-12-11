@@ -16,7 +16,7 @@ import axios from 'axios';
 import MovieRow from './MovieRow';
 
 const apiKey = process.env.REACT_APP_API_KEY;
-// const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 class MovieModal extends Component {
 	state = {
