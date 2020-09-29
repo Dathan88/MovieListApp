@@ -36,7 +36,7 @@ class MovieList extends Component {
 		}
 	}
 
-	onDeleteClick = id => {
+	onDeleteClick = (id) => {
 		const { user } = this.props.auth;
 		this.props.deleteMovie(id, user.id);
 	};
@@ -46,7 +46,9 @@ class MovieList extends Component {
 	render() {
 		const { user } = this.props.auth;
 		const { movies } = this.props.movie;
-		console.log(movies);
+		let num = 1;
+		movies.sort((a, b) => (a.title > b.title ? 1 : -1));
+
 		return (
 			<Container style={{ padding: 0, marginBottom: '3rem' }}>
 				<DropdownItem divider />
@@ -62,7 +64,7 @@ class MovieList extends Component {
 										<CSSTransition key={_id} timeout={500} classtitles='fade'>
 											<UncontrolledDropdown>
 												<DropdownToggle size='sm' caret>
-													{title}
+													{num++ + '. ' + title}
 												</DropdownToggle>
 												<DropdownMenu className='dropDownMenu'>
 													<DropdownItem tag='a' className='dropDownItem'>
@@ -78,8 +80,7 @@ class MovieList extends Component {
 																				onClick={this.onDeleteClick.bind(
 																					this,
 																					_id
-																				)}
-																			>
+																				)}>
 																				&times;
 																			</Button>
 																			<Button
@@ -89,8 +90,7 @@ class MovieList extends Component {
 																				onClick={this.onDeleteClick.bind(
 																					this,
 																					_id
-																				)}
-																			>
+																				)}>
 																				Delete
 																			</Button>
 																		</td>
@@ -108,8 +108,7 @@ class MovieList extends Component {
 																				<Button
 																					className='btn-close'
 																					color='warning'
-																					size='sm'
-																				>
+																					size='sm'>
 																					&times;
 																				</Button>
 																			</h3>
@@ -133,7 +132,7 @@ class MovieList extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	movie: state.movie,
 	isAuthenticated: state.auth.isAuthenticated,
 	auth: state.auth,
