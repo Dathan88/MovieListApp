@@ -18,6 +18,9 @@ import PropTypes from 'prop-types';
 
 import LogRocket from 'logrocket';
 
+const apiKey = process.env.REACT_APP_API_KEY;
+const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
 class MovieList extends Component {
 	static propTypes = {
 		getMovies: PropTypes.func.isRequired,
