@@ -16,7 +16,7 @@
 	"author": "Dathan Spencer <dathanpspencer@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"axios": "^0.20.0",
+		"axios": "^0.21.1",
 		"bcryptjs": "^2.4.3",
 		"concurrently": "^5.3.0",
 		"config": "^3.3.2",
